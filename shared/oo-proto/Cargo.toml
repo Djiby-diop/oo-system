@@ -1,0 +1,12 @@
+[package]
+name = "oo-proto"
+version = "0.1.0"
+edition = "2021"
+description = "OO Message Bus protocol types — shared across all OO layers"
+license = "MIT"
+
+[features]
+default = []
+std = []
+
+[dependencies]

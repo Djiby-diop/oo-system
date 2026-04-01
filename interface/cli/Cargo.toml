@@ -1,0 +1,12 @@
+[package]
+name = "oo"
+version = "0.1.0"
+edition = "2021"
+description = "OO CLI — interact with the Operating Organism ecosystem"
+license = "MIT"
+
+[[bin]]
+name = "oo"
+path = "src/main.rs"
+
+[dependencies]

@@ -1,0 +1,22 @@
+# Git
+.git/
+
+# Rust
+target/
+Cargo.lock
+
+# Build artifacts
+*.o
+*.so
+*.efi
+*.img
+*.bin
+
+# QEMU
+*.fd
+*.log
+qemu-fs/
+
+# OS
+.DS_Store
+Thumbs.db
