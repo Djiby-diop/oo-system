@@ -1,6 +1,0 @@
-[workspace]
-members = [
-    "shared/oo-proto",
-    "interface/cli",
-]
-resolver = "2"

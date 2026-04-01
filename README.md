@@ -19,18 +19,18 @@ OO (Operating Organism)
   4. Research Layer     oo-lab          Prototypes + incubateur d'idées
   5. Evolution Layer    oo-dplus        D+ policy engine + mutation système
   6. Meta Layer         oo-system/meta  OO se modifie lui-même
-  7. Interface Layer    oo-system/iface CLI `oo` + API + bridge hardware
+  7. Interface Layer    oo-system/iface CLI `oo` + API + bridge hardware (C)
 ```
 
 | Couche | Repo | Langage | Status |
 |--------|------|---------|--------|
 | Cognitive Core | [llm-baremetal](https://github.com/Djiby-diop/llm-baremetal) | C + UEFI | ✅ v0.1 |
 | Execution Kernel | [oo-host](https://github.com/Djiby-diop/oo-host) | Rust | ✅ Actif |
-| Simulation | [oo-sim](https://github.com/Djiby-diop/oo-sim) | Rust | 🟡 Phase 2 |
+| Simulation | [oo-sim](https://github.com/Djiby-diop/oo-sim) | C | 🟡 Phase 2 |
 | Research | [oo-lab](https://github.com/Djiby-diop/oo-lab) | Multi | 🟡 Phase 2 |
 | Evolution | [oo-dplus](https://github.com/Djiby-diop/oo-dplus) | Rust (no_std) | ✅ Actif |
-| Meta | oo-system/meta | Rust | 🔲 Phase 4 |
-| Interface | oo-system/interface | Rust | 🔲 Phase 2 |
+| Meta | oo-system/meta | C | 🔲 Phase 4 |
+| Interface | oo-system/interface | C | ✅ CLI actif |
 
 ---
 
@@ -42,6 +42,9 @@ OO (Operating Organism)
 
 # Voir l'état de tous les repos
 ./scripts/status.sh
+
+# Build oo-system en C
+make
 
 # Build tout
 ./scripts/build-all.sh

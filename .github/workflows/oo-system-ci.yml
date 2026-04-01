@@ -8,45 +8,30 @@ on:
 
 jobs:
   oo-proto:
-    name: oo-proto (shared types)
+    name: oo-proto (shared C types)
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - uses: dtolnay/rust-toolchain@stable
-      - uses: actions/cache@v4
-        with:
-          path: |
-            ~/.cargo/registry
-            ~/.cargo/git
-          key: ${{ runner.os }}-cargo-proto-${{ hashFiles('shared/oo-proto/Cargo.toml') }}
-      - name: cargo check (no_std)
-        working-directory: shared/oo-proto
-        run: cargo check
-      - name: cargo check (std feature)
-        working-directory: shared/oo-proto
-        run: cargo check --features std
+      - name: Install build toolchain
+        run: sudo apt-get update && sudo apt-get install -y build-essential
+      - name: Build oo-proto
+        run: make -C shared/oo-proto
+      - name: Test oo-proto
+        run: make -C shared/oo-proto test
 
   oo-cli:
     name: oo CLI (interface/cli)
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - uses: dtolnay/rust-toolchain@stable
-      - uses: actions/cache@v4
-        with:
-          path: |
-            ~/.cargo/registry
-            ~/.cargo/git
-          key: ${{ runner.os }}-cargo-cli-${{ hashFiles('interface/cli/Cargo.toml') }}
-      - name: cargo build
-        working-directory: interface/cli
-        run: cargo build
-      - name: cargo test
-        working-directory: interface/cli
-        run: cargo test
+      - name: Install build toolchain
+        run: sudo apt-get update && sudo apt-get install -y build-essential
+      - name: Build oo CLI
+        run: make -C interface/cli
+      - name: Test oo CLI
+        run: make -C interface/cli test
       - name: oo help
-        working-directory: interface/cli
-        run: cargo run -- help
+        run: ./interface/cli/build/oo help
 
   validate-scripts:
     name: Validate shell scripts

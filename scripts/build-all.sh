@@ -39,7 +39,7 @@ echo ""
 echo "[4/5] oo CLI (interface/cli)"
 CLI_DIR="$WORKSPACE/oo-system/interface/cli"
 if [ -d "$CLI_DIR" ]; then
-    (cd "$CLI_DIR" && cargo build 2>&1 | tail -3) && echo "  ✓ oo CLI OK" || { echo "  ✗ oo CLI FAILED"; FAILED+=("oo-cli"); }
+    (cd "$CLI_DIR" && make 2>&1 | tail -3) && echo "  ✓ oo CLI OK" || { echo "  ✗ oo CLI FAILED"; FAILED+=("oo-cli"); }
 fi
 
 # ─── 5. oo-system/shared/oo-proto ──────────────────────────
@@ -47,7 +47,7 @@ echo ""
 echo "[5/5] oo-proto (shared types)"
 PROTO_DIR="$WORKSPACE/oo-system/shared/oo-proto"
 if [ -d "$PROTO_DIR" ]; then
-    (cd "$PROTO_DIR" && cargo check 2>&1 | tail -3) && echo "  ✓ oo-proto OK" || { echo "  ✗ oo-proto FAILED"; FAILED+=("oo-proto"); }
+    (cd "$PROTO_DIR" && make test 2>&1 | tail -3) && echo "  ✓ oo-proto OK" || { echo "  ✗ oo-proto FAILED"; FAILED+=("oo-proto"); }
 fi
 
 # ─── Summary ───────────────────────────────────────────────

@@ -1,16 +1,16 @@
 # Git
 .git/
 
-# Rust
-target/
-Cargo.lock
-
 # Build artifacts
+target/
 *.o
 *.so
+*.a
+*.exe
 *.efi
 *.img
 *.bin
+build/
 
 # QEMU
 *.fd

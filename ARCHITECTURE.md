@@ -147,7 +147,7 @@ Aucun appel direct entre couches non-adjacentes.
 **Rôle :** Pont entre OO et le monde réel.
 
 **Responsabilités :**
-- CLI `oo` : commandes pour interagir avec tout l'écosystème
+- CLI `oo` en C : commandes pour interagir avec tout l'écosystème
 - API HTTP légère : interroger l'état de OO depuis l'extérieur
 - Bridge C : communication série entre bare-metal et host
 - UI future : dashboard web minimal
@@ -185,7 +185,7 @@ OOEvent  = THINK | ACT | OBSERVE | EVOLVE | PATCH | QUERY | RESPONSE | JOURNAL |
 
 **Transport :**
 - Bare-metal : region mémoire WARM (offset fixe, zéro copie)
-- Host : Unix socket (`/tmp/oo-bus.sock`) ou pipe nommé
+- Host : socket Unix, pipe nommé, ou pont CLI natif C
 - Inter-machine (Phase 5) : TCP + authentification HMAC
 
 ---

@@ -1,12 +1,12 @@
 /*
- * oo_proto.h — OO Message Bus protocol types for C (bare-metal / UEFI)
- * Generated from shared/oo-proto/src/lib.rs — keep in sync.
- * Freestanding: no libc, no stdlib.
+ * oo_proto.h — OO Message Bus protocol types for C.
+ * Shared across the full OO stack: bare-metal, host tooling, and interface.
  */
 #ifndef OO_PROTO_H
 #define OO_PROTO_H
 
 #include <stdint.h>
+#include <stddef.h>
 
 #ifdef __cplusplus
 extern "C" {
@@ -62,7 +62,8 @@ typedef enum {
  *   [20..23] payload_len  : uint32_t LE
  *   [24..31] reserved     : uint8_t[8]
  * ============================================================ */
-typedef struct __attribute__((packed)) {
+#pragma pack(push, 1)
+typedef struct {
     uint8_t  version;
     uint8_t  from;        /* OOLayer */
     uint8_t  to;          /* OOLayer */
@@ -72,31 +73,35 @@ typedef struct __attribute__((packed)) {
     uint32_t payload_len;
     uint8_t  reserved[8];
 } OOMessageHeader;
+#pragma pack(pop)
+
+#define OO_STATIC_ASSERT(name, expr) typedef char name[(expr) ? 1 : -1]
+OO_STATIC_ASSERT(oo_message_header_is_32_bytes, sizeof(OOMessageHeader) == OO_MSG_HEADER_SIZE);
 
 /* ============================================================
  * Helpers
  * ============================================================ */
 
-/* Fill a header in-place (little-endian). */
-static inline void oo_msg_init(
-    OOMessageHeader *h,
+int oo_layer_from_u8(uint8_t value, OOLayer *out_layer);
+const char *oo_layer_name(OOLayer layer);
+
+int oo_event_from_u8(uint8_t value, OOEvent *out_event);
+const char *oo_event_name(OOEvent event_kind);
+
+/* Fill a header in-place. */
+void oo_msg_init(
+    OOMessageHeader *header,
     OOLayer from, OOLayer to, OOEvent kind,
-    uint64_t seq, uint64_t ts, uint32_t payload_len)
-{
-    h->version     = OO_PROTO_VERSION;
-    h->from        = (uint8_t)from;
-    h->to          = (uint8_t)to;
-    h->kind        = (uint8_t)kind;
-    h->seq         = seq;
-    h->ts          = ts;
-    h->payload_len = payload_len;
-    for (int i = 0; i < 8; i++) h->reserved[i] = 0;
-}
+    uint64_t seq, uint64_t ts, uint32_t payload_len);
 
 /* Validate a received header. Returns 1 if valid, 0 if not. */
-static inline int oo_msg_validate(const OOMessageHeader *h) {
-    return h != 0 && h->version == OO_PROTO_VERSION;
-}
+int oo_msg_validate(const OOMessageHeader *header);
+
+/* Serialize a header to the fixed 32-byte wire format. */
+void oo_msg_to_bytes(const OOMessageHeader *header, uint8_t out_bytes[OO_MSG_HEADER_SIZE]);
+
+/* Deserialize a header from the fixed 32-byte wire format. */
+int oo_msg_from_bytes(const uint8_t in_bytes[OO_MSG_HEADER_SIZE], OOMessageHeader *out_header);
 
 #ifdef __cplusplus
 }

@@ -15,8 +15,8 @@
 - [x] `oo-sim` : repo initialisé sur GitHub
 - [x] `oo-lab` : repo initialisé sur GitHub
 - [x] `oo-system` : repo umbrella + ARCHITECTURE.md
-- [ ] `shared/oo-proto` : types OOMessage (Rust crate + C header)
-- [ ] `interface/cli` : commande `oo status`
+- [x] `shared/oo-proto` : types OOMessage en C + header partagé
+- [x] `interface/cli` : CLI `oo` en C (`status`, `think`, `journal`, `layers`)
 - [ ] `scripts/bootstrap.sh` : clone tous les repos en une commande
 - [ ] CI umbrella : vérifie que tous les repos compilent
 
@@ -26,7 +26,7 @@
 
 **Objectif :** OO peut être interrogé depuis l'extérieur. oo-sim tourne.
 
-- [ ] `interface/cli` complet : `oo think`, `oo journal`, `oo status`
+- [x] `interface/cli` complet : `oo think`, `oo journal`, `oo status`
 - [ ] Bridge série : oo-host lit le serial log de QEMU en temps réel
 - [ ] `oo-sim` : premier monde simulé (agent simple + policy D+)
 - [ ] `oo-lab` : premier prototype (micro-benchmark Mamba vs llama2)
