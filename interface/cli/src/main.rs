@@ -5,14 +5,16 @@ use std::process::Command;
 use std::path::{Path, PathBuf};
 
 // ============================================================
-// OO Repos registry
+// OO Repos registry (used by future `oo publish` and `oo sync` commands)
 // ============================================================
+#[allow(dead_code)]
 struct OORepo {
     name:   &'static str,
     layer:  &'static str,
     github: &'static str,
 }
 
+#[allow(dead_code)]
 const OO_REPOS: &[OORepo] = &[
     OORepo { name: "llm-baremetal", layer: "1-cognitive",  github: "Djiby-diop/llm-baremetal" },
     OORepo { name: "oo-host",       layer: "2-kernel",     github: "Djiby-diop/oo-host" },
